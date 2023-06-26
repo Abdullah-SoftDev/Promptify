@@ -1,5 +1,11 @@
+import Herosection from "@/components/Herosection";
+import Promptsection from "@/components/Promptsection";
+
 export default function Home() {
   return (
-    <h1>Lets start building promptify.</h1>
+    <>
+      <Herosection />
+      <Promptsection />
+    </>
   )
 }
