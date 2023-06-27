@@ -1,6 +1,8 @@
+import Link from "next/link"
+
 const Herosection = () => {
     return (
-        <div className="relative isolate px-6 pt-1 lg:px-8 pb-10">
+        <div className="relative isolate px-6  lg:px-8 pb-28">
             <div
                 className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true"
@@ -13,35 +15,26 @@ const Herosection = () => {
                     }}
                 />
             </div>
-            <div className="mx-auto max-w-2xl pt-32">
+            <div className="mx-auto max-w-2xl pt-44">
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                    <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                        Announcing our next round of funding.{' '}
-                        <a href="#" className="font-semibold text-indigo-600">
+                    <div className="relative rounded-full px-3 py-1 font-medium text-lg  leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                        Give it a ⭐ and  contribute to this open source wesbite.{' '}
+                        <Link href="/" className="font-semibold text-indigo-600">
                             <span className="absolute inset-0" aria-hidden="true" />
-                            Read more <span aria-hidden="true">&rarr;</span>
-                        </a>
+                            Github <span aria-hidden="true">&rarr;</span>
+                        </Link>
                     </div>
                 </div>
                 <div className="text-center">
-                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                        Data to enrich your online business
+                    <h1 className='mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl text-center'>
+                        Discover & Share
+                        <br className='max-md:hidden' />
+                        <span className='bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center'> AI-Powered Prompts</span>
                     </h1>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                        fugiat veniam occaecat fugiat aliqua.
+                    <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">
+                        Promptopia is an open-source AI prompting tool for modern world to
+                        discover, create and share creative prompts.
                     </p>
-                    <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <a
-                            href="#"
-                            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Get started
-                        </a>
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                            Learn more <span aria-hidden="true">→</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

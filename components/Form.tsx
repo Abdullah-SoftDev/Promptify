@@ -12,8 +12,8 @@ const Form = () => {
             </div>
 
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Create Post</h2>
-                <p className="mt-2 text-lg leading-8 text-gray-600">Create and share amazing prompts with the world, and let your
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent">Create Post</h2>
+                <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">Create and share amazing prompts with the world, and let your
                     imagination run wild with any AI-powered platform.</p>
             </div>
             <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
