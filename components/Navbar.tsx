@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link'
 
 function classNames(...classes: any[]): string {
     return classes.filter(Boolean).join(' ')
@@ -25,12 +26,12 @@ const Navbar = () => {
                                 </div>
                                 <div className="hidden lg:ml-8 lg:flex lg:space-x-8">
                                     {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                                    <a
-                                        href="#"
+                                    <Link
+                                        href="/trending"
                                         className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                     >
                                         Trending
-                                    </a>
+                                    </Link>
                                     <a
                                         href="#"
                                         className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
