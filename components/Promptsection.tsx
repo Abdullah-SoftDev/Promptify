@@ -75,8 +75,8 @@ const posts = [
 
 const Promptsection = () => {
   return (
-    <div className="mx-auto max-w-6xl  py-8 px-6 lg:px-8">
-      <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+    <div className="mx-auto max-w-6xl px-6 lg:px-8">
+      <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 py-10  lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {posts.map((post:PostsPromps) => (
           <Promptcard {...post}/>
         ))}
