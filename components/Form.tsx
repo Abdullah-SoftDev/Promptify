@@ -12,7 +12,9 @@ const Form = () => {
             </div>
 
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent">Create Post</h2>
+            <h1 className='text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center'>
+        <span className='bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center'>Create Prompt</span>
+      </h1>
                 <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">Create and share amazing prompts with the world, and let your
                     imagination run wild with any AI-powered platform.</p>
             </div>
