@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const page = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const [signInWithEmailAndPassword, emailUser, emailLoading, emailError,] = useSignInWithEmailAndPassword(auth);
+    const router = useRouter()
     const [displayedError, setDisplayedError] = useState<string | null>(null);
     const [loginForm, setLoginForm] = useState({
         email: "",
@@ -25,7 +26,6 @@ const page = () => {
         e.preventDefault();
         await signInWithEmailAndPassword(loginForm.email, loginForm.password);
     };
-    const router = useRouter()
     if (user || emailUser) {
         router.push('/');
     }
@@ -34,7 +34,6 @@ const page = () => {
             setDisplayedError((error as Error)?.message || (emailError as Error)?.message);
         }
     }, [error, emailError]);
-
 
     const createUserDocumentOnGoogleauth = async (user: User) => {
         const docRef = doc(db, "users", user?.uid)
@@ -46,6 +45,7 @@ const page = () => {
             createUserDocumentOnGoogleauth(user.user)
         }
     }, [user])
+
     return (
         <>
             {displayedError &&

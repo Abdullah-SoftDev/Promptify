@@ -2,7 +2,7 @@
 import { FIREBASE_ERRORS } from "@/firebase/error";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -42,8 +42,8 @@ const page = () => {
     }
 
     const createUserDocumentOnEmailauth = async (user: User) => {
-        const docRef = collection(db, "users")
-        await addDoc(docRef, JSON.parse(JSON.stringify(user)));
+        const docRef = doc(db, "users", user?.uid)
+        await setDoc(docRef, JSON.parse(JSON.stringify(user)));
     }
 
     useEffect(() => {

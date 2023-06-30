@@ -4,7 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/firebaseConfig'
 
 function classNames(...classes: any[]): string {
@@ -14,6 +14,7 @@ function classNames(...classes: any[]): string {
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
+    const [signOut] = useSignOut(auth);
     return (
         <Disclosure as="nav" className="bg-white shadow sticky top-0 left-0 right-0 z-20">
             {({ open }) => (
@@ -47,6 +48,13 @@ const Navbar = () => {
                                     >
                                         My prompts
                                     </Link>
+                                    <button
+                                        type="button"
+                                        onClick={async () => { await signOut() }}
+                                        className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                    >
+                                        Logout
+                                    </button>
                                 </div>
                             </div>
                             <div className="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -91,7 +99,12 @@ const Navbar = () => {
                                                     src={user?.photoURL ?? ''}
                                                     alt="" />
                                                 }
-                                                {user && user?.email && !user?.photoURL && <p>{user?.email}</p>}
+                                                {user && user?.email && !user?.photoURL && (
+                                                    <p className='text-gray-600 text-base font-medium'>
+                                                        {user?.email?.split("@")[0].charAt(0).toUpperCase() + user?.email?.split("@")[0].slice(1)}
+                                                    </p>
+                                                )}
+
                                             </Menu.Button>
                                         </div>
                                         <Transition

@@ -1,4 +1,86 @@
+'use client'
+import { auth, db } from "@/firebase/firebaseConfig";
+import { CreatePromptForm } from "@/types/types";
+import { Timestamp, WriteBatch, collection, doc, serverTimestamp, writeBatch } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useState } from "react"
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const Form = () => {
+    // Set up the state for the create prompt form fields
+    const [createPromptForm, setCreatePromptForm] = useState({
+        tag: "",
+        prompt: "",
+    });
+
+    // Set up the state for the loading indicator
+    const [loading, setLoading] = useState(false);
+
+    // Get the authenticated user from Firebase
+    const [user] = useAuthState(auth);
+
+    // Get the router object for navigation
+    const router = useRouter();
+
+    // Handle input changes for the form fields
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setCreatePromptForm({ ...createPromptForm, [name]: value });
+    };
+
+    // Submit the form data to Firebase
+    const submitFormToFirebase = async (e: FormEvent) => {
+        e.preventDefault();
+
+        // Generate a new unique postId for the prompt
+        const newPostId = doc(collection(db, 'ids')).id;
+
+        // Set up document references for the user's post and the general post collection
+        const docRef = doc(db, `users/${user?.uid}/post`, newPostId);
+        const newDocRef = doc(db, 'post', newPostId);
+
+        // Set the loading state to indicate form submission in progress
+        setLoading(true);
+
+        try {
+            // Create a batch write operation for atomicity
+            const batch: WriteBatch = writeBatch(db);
+
+            // Create a new prompt object with the form data
+            const newSnippet: CreatePromptForm = {
+                postId: newPostId,
+                tag: createPromptForm.tag,
+                prompt: createPromptForm.prompt,
+                creatorName: user?.displayName! || user?.email!,
+                creatorImageUrl: user?.photoURL || "https://img.icons8.com/?size=1x&id=4V1nG4SioGjp&format=png",
+                creatorUid: user?.uid!,
+                like: 0,
+                createdAt: serverTimestamp() as Timestamp,
+            };
+
+            // Add the new prompt to the user's post collection and the general post collection
+            batch.set(docRef, newSnippet);
+            batch.set(newDocRef, newSnippet);
+
+            // Commit the batch write operation
+            await batch.commit();
+
+            // Reset the create prompt form fields
+            setCreatePromptForm({
+                tag: "",
+                prompt: ""
+            });
+
+            // Navigate to the home page
+            router.push("/");
+        } catch (error) {
+            // Handle errors during form submission
+            alert("Create Prompt Form Error" + error);
+        }
+
+        // Set the loading state back to false
+        setLoading(false);
+    };
     return (
         <div className="isolate bg-white px-6 py-20 lg:px-8 ">
             <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
@@ -12,13 +94,13 @@ const Form = () => {
             </div>
 
             <div className="mx-auto max-w-2xl text-center">
-            <h1 className='text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center'>
-        <span className='bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center'>Create Prompt</span>
-      </h1>
+                <h1 className='text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center'>
+                    <span className='bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center'>Create Prompt</span>
+                </h1>
                 <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">Create and share amazing prompts with the world, and let your
                     imagination run wild with any AI-powered platform.</p>
             </div>
-            <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+            <form onSubmit={submitFormToFirebase} className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div className="sm:col-span-2">
                         <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -26,8 +108,9 @@ const Form = () => {
                         </label>
                         <div className="mt-2.5">
                             <input
+                                onChange={handleInputChange}
                                 type="text"
-                                name="company"
+                                name="tag"
                                 id="company"
                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -39,11 +122,12 @@ const Form = () => {
                         </label>
                         <div className="mt-2.5">
                             <textarea
-                                name="message"
-                                id="message"
+                                name="prompt"
+                                onChange={handleInputChange}
+                                id="text"
                                 rows={4}
-                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            ></textarea>
+                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -58,7 +142,7 @@ const Form = () => {
                         type="submit"
                         className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     >
-                        Post
+                        {loading ? "Loading..." : "Post"}
                     </button>
                 </div>
             </form>

@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type PostsPromps = {
     id: number;
     title: string;
@@ -15,4 +17,15 @@ export type PostsPromps = {
         href: string;
         imageUrl: string;
     };
+}
+
+export type CreatePromptForm ={
+    postId:string;
+    tag: string;
+    prompt: string;
+    creatorName: string;
+    creatorImageUrl?:string;
+    creatorUid: string;
+    like: number;
+    createdAt: Timestamp;
 }
