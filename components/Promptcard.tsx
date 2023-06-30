@@ -1,20 +1,21 @@
-import { PostsPromps } from "@/types/types"
 import { ClipboardIcon, HeartIcon } from "@heroicons/react/24/solid"
+import { PostData } from '@/types/types';
+import moment from "moment";
 
-const Promptcard = (post: PostsPromps) => {
+const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid }: PostData) => {
     return (
         <>
             <article className="flex flex-col items-start justify-between bg-gray-100 p-3 border border-gray-200 rounded-md relative overflow-hidden">
                 <div className="flex items-center justify-between gap-x-4 text-xs w-full">
                     <div className="space-x-4">
-                        <time dateTime={post.datetime} className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700">
-                            {post.date}
+                        <time className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700">
+                        {moment(new Date(createdAt?.seconds * 1000)).fromNow()}
                         </time>
                         <a
-                            href={post.category.href}
+                            href={'/'}
                             className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700 hover:bg-gray-200"
                         >
-                            {post.category.title}
+                            {tag}
                         </a>
                     </div>
                     <div className="flex space-x-4 items-center">
@@ -25,16 +26,16 @@ const Promptcard = (post: PostsPromps) => {
                     </div>
                 </div>
                 <div className="group relative">
-                    <p className="py-5 font-medium text-sm leading-6 text-gray-600">{post.description}</p>
+                    <p className="py-5 font-medium text-sm leading-6 text-gray-600">{prompt}</p>
                 </div>
                 <div className="relative flex items-center justify-between w-full">
                     <div className="flex gap-4 items-center">
-                        <img src={post.author.imageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
+                        <img src={creatorImageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                         <div className="text-sm leading-6">
                             <p className="font-semibold text-gray-900">
-                                <a href={post.author.href}>
+                                <a href={"/"}>
                                     <span className="absolute inset-0" />
-                                    {post.author.name}
+                                    {creatorName}
                                 </a>
                             </p>
                         </div>
@@ -60,7 +61,7 @@ const Promptcard = (post: PostsPromps) => {
                 </div>
             </article>
         </>
-    )
-}
+    );
+};
 
-export default Promptcard
+export default Promptcard;

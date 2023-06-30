@@ -1,9 +1,9 @@
 import Promptsection from "./Promptsection"
 
-const Feed = () => {
+const Feed = async () => {
   return (
     <>
-    <Promptsection/>
+      <Promptsection />
     </>
   )
 }

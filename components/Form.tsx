@@ -1,6 +1,6 @@
 'use client'
 import { auth, db } from "@/firebase/firebaseConfig";
-import { CreatePromptForm } from "@/types/types";
+import { PostData } from "@/types/types";
 import { Timestamp, WriteBatch, collection, doc, serverTimestamp, writeBatch } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react"
@@ -47,7 +47,7 @@ const Form = () => {
             const batch: WriteBatch = writeBatch(db);
 
             // Create a new prompt object with the form data
-            const newSnippet: CreatePromptForm = {
+            const newSnippet: PostData = {
                 postId: newPostId,
                 tag: createPromptForm.tag,
                 prompt: createPromptForm.prompt,
