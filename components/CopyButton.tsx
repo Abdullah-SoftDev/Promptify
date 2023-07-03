@@ -1,4 +1,3 @@
-'use client'
 import { ArrowRightIcon, CheckBadgeIcon, ClipboardIcon } from "@heroicons/react/24/solid"
 import { useState } from "react";
 interface CopyButtonProps {

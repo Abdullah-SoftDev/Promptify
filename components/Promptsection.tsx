@@ -1,8 +1,10 @@
 import Promptcard from "./Promptcard"
-import { db } from "@/firebase/firebaseConfig";
+import { auth, db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/types";
 import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
+export const dynamic = 'auto';
 const Promptsection = async () => {
   const snippetQuery: CollectionReference<DocumentData> = collection(db, "post");
   const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);

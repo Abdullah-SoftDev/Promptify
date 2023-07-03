@@ -1,11 +1,19 @@
-import { ClipboardIcon, HeartIcon } from "@heroicons/react/24/solid"
+'use client'
+import { HeartIcon } from "@heroicons/react/24/solid"
 import { PostData } from '@/types/types';
 import moment from "moment";
 import Link from "next/link";
 import CopyButton from "./CopyButton";
 import ShareButton from "./ShareButton";
+import { usePathname } from "next/navigation";
+import { auth, db } from "@/firebase/firebaseConfig";
+import { doc, deleteDoc, WriteBatch, writeBatch } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid }: PostData) => {
+const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
+    const pathName = usePathname();
+
+
     return (
         <>
             <article className="flex flex-col items-start justify-between bg-gray-100 p-3 border border-gray-200 rounded-md relative overflow-hidden">
@@ -22,8 +30,8 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         </a>
                     </div>
                     <div className="flex space-x-4 items-center">
-                      <ShareButton prompt={prompt}/>
-                     <CopyButton prompt={prompt}/>
+                        <ShareButton prompt={prompt} />
+                        <CopyButton prompt={prompt} />
                     </div>
                 </div>
                 <div className="group relative">
@@ -46,20 +54,26 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         <p className="font-medium">999</p>
                     </div>
                 </div>
-                <div className="pt-5 flex justify-between w-full">
+                {pathName === "/my-prompts" && <div className="pt-5 flex justify-between w-full">
                     <button
+                        onClick={() => {
+                            if (deletePrompt) {
+                                deletePrompt(postId);
+                            }
+                        }}
                         type="button"
                         className="px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-md hover:bg-red-600"
                     >
                         Delete
                     </button>
+
                     <button
-                        type="submit"
+                        type="button"
                         className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     >
                         Edit
                     </button>
-                </div>
+                </div>}
             </article>
         </>
     );
