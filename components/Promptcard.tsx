@@ -2,6 +2,7 @@ import { ClipboardIcon, HeartIcon } from "@heroicons/react/24/solid"
 import { PostData } from '@/types/types';
 import moment from "moment";
 import Link from "next/link";
+import CopyButton from "./CopyButton";
 
 const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid }: PostData) => {
     return (
@@ -21,9 +22,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                     </div>
                     <div className="flex space-x-4 items-center">
                         <img className="text-blue-500 w-7 h-7 cursor-pointer" src="/twitter.png" alt="Twitter" />
-                        <div className="bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
-                            <ClipboardIcon className="text-blue-500 w-5 h-5 cursor-pointer" />
-                        </div>
+                     <CopyButton prompt={prompt}/>
                     </div>
                 </div>
                 <div className="group relative">
