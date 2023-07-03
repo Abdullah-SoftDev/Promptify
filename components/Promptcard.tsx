@@ -1,6 +1,7 @@
 import { ClipboardIcon, HeartIcon } from "@heroicons/react/24/solid"
 import { PostData } from '@/types/types';
 import moment from "moment";
+import Link from "next/link";
 
 const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid }: PostData) => {
     return (
@@ -9,7 +10,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                 <div className="flex items-center justify-between gap-x-4 text-xs w-full">
                     <div className="space-x-4">
                         <time className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700">
-                        {moment(new Date(createdAt?.seconds * 1000)).fromNow()}
+                            {moment(new Date(createdAt?.seconds * 1000)).fromNow()}
                         </time>
                         <a
                             href={'/'}
@@ -33,10 +34,10 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         <img src={creatorImageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                         <div className="text-sm leading-6">
                             <p className="font-semibold text-gray-900">
-                                <a href={"/"}>
+                                <Link href={`/profile/username=${creatorName}/?uid=${creatorUid}`}>
                                     <span className="absolute inset-0" />
                                     {creatorName}
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </div>
