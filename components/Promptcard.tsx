@@ -3,6 +3,7 @@ import { PostData } from '@/types/types';
 import moment from "moment";
 import Link from "next/link";
 import CopyButton from "./CopyButton";
+import ShareButton from "./ShareButton";
 
 const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid }: PostData) => {
     return (
@@ -21,7 +22,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         </a>
                     </div>
                     <div className="flex space-x-4 items-center">
-                        <img className="text-blue-500 w-7 h-7 cursor-pointer" src="/twitter.png" alt="Twitter" />
+                      <ShareButton prompt={prompt}/>
                      <CopyButton prompt={prompt}/>
                     </div>
                 </div>
