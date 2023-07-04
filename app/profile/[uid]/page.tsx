@@ -9,7 +9,7 @@ interface ParamsProps {
 const page = async ({ params }: ParamsProps) => {
   const { uid } = params;
 
-  const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${uid}/post`);
+  const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${uid}/posts`);
   const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
   const posts: PostData[] = snippetDocs.docs.map((doc) => {
     const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData

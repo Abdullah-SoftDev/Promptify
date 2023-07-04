@@ -12,7 +12,7 @@ const page = () => {
   const [loading, setLoading] = useState(false)
   const getMyPrompts = async (userId: any) => {
     setLoading(true);
-    const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${userId}/post`);
+    const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${userId}/posts`);
     const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
     const posts: PostData[] = snippetDocs.docs.map((doc) => {
       const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
@@ -32,8 +32,8 @@ const page = () => {
       "Are you sure you want to delete this prompt?"
     );
     if (hasConfirmed) {
-      const docRef = doc(db, `users/${user?.uid}/post`, postId);
-      const newDocRef = doc(db, "post", postId);
+      const docRef = doc(db, `users/${user?.uid}/posts`, postId);
+      const newDocRef = doc(db, "posts", postId);
       try {
         // Create a batch write operation for atomicity
         const batch: WriteBatch = writeBatch(db);

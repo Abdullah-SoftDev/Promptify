@@ -1,7 +1,6 @@
 'use client'
 import { HeartIcon } from "@heroicons/react/24/solid"
 import { PostData } from '@/types/typescript.types';
-import moment from "moment";
 import Link from "next/link";
 import CopyButton from "./CopyButton";
 import ShareButton from "./ShareButton";

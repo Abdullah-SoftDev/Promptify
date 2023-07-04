@@ -6,7 +6,7 @@ import { DocumentData, collection, QuerySnapshot, getDocs, orderBy, query, Query
 export const dynamic = 'auto';
 const Promptsection = async () => {
   const snippetQuery: Query<DocumentData> = query(
-    collection(db, "post"),
+    collection(db, "posts"),
     orderBy("createdAt", "desc")
   );
 

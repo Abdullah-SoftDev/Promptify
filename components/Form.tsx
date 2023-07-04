@@ -33,13 +33,20 @@ const Form = ({ prompt, tag, postId }: any) => {
     // Submit the form data to Firebase
     const submitFormToFirebase = async (e: FormEvent) => {
         e.preventDefault();
-
+        if (createPromptForm.tag.length < 5 || createPromptForm.tag.length > 15) {
+            alert("Tag length must be greater than 3 and less than 15 characters.");
+            return;
+        }
+        if (createPromptForm.prompt.length < 15) {
+            alert("Prompt length must be greater than 15 characters.");
+            return;
+        }
         // Generate a new unique postId for the prompt
         const newPostId = doc(collection(db, 'ids')).id;
 
         // Set up document references for the user's post and the general post collection
-        const docRef = doc(db, `users/${user?.uid}/post`, newPostId);
-        const newDocRef = doc(db, 'post', newPostId);
+        const docRef = doc(db, `users/${user?.uid}/posts`, newPostId);
+        const newDocRef = doc(db, 'posts', newPostId);
 
         // Set the loading state to indicate form submission in progress
         setLoading(true);
@@ -87,9 +94,9 @@ const Form = ({ prompt, tag, postId }: any) => {
     // Update the form data to Firebase
     const handelUpdatePrompt = async (e: FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        const docRef = doc(db, `users/${user?.uid}/post`, postId);
-        const newDocRef = doc(db, 'post', postId);
+        const docRef = doc(db, `users/${user?.uid}/posts`, postId);
+        const newDocRef = doc(db, 'posts', postId);
+        setLoading(true)
         try {
             // Create a batch write operation for atomicity
             const batch: WriteBatch = writeBatch(db);
@@ -120,6 +127,13 @@ const Form = ({ prompt, tag, postId }: any) => {
         // Set the loading state back to false
         setLoading(false);
     };
+
+    const handelCancel = () => {
+        setCreatePromptForm({
+            tag: tag || "",
+            prompt: prompt || "",
+        });
+    }
 
     return (
         <div className="isolate bg-white px-6 py-20 lg:px-8 ">
@@ -174,26 +188,27 @@ const Form = ({ prompt, tag, postId }: any) => {
                     </div>
                 </div>
                 <div className="mt-10 flex justify-between">
+                    <button
+                        type="button"
+                        onClick={handelCancel}
+                        className="px-4 py-2 text-sm font-medium text-gray-800 bg-gray-300 rounded-md hover:bg-gray-200"
+                    >
+                        Cancel
+                    </button>
                     {pathName === `/update-prompt/${postId}` && <button
                         onClick={handelUpdatePrompt}
                         type="button"
                         className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
                     >
-                        {loading ? "Loading..." : "Upadte"}
+                        {loading ? "Loading..." : "Update"}
                     </button>}
-                    <button
-                        type="button"
-                        className="px-4 py-2 text-sm font-medium text-gray-800 bg-gray-300 rounded-md hover:bg-gray-200"
-                    >
-                        Cancel
-                    </button>
-                    <button
+                    {pathName === '/create-prompt' && <button
                         onClick={submitFormToFirebase}
                         type="button"
                         className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     >
-                        {loading ? "Loading..." : "Post"}
-                    </button>
+                        {loading ? "Loading..." : "Create"}
+                    </button>}
                 </div>
             </div>
         </div>
