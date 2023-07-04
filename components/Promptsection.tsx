@@ -1,6 +1,6 @@
 import Promptcard from "./Promptcard"
 import { db } from "@/firebase/firebaseConfig";
-import { PostData } from "@/types/types";
+import { PostData } from "@/types/typescript.types";
 import { DocumentData, collection, QuerySnapshot, getDocs, orderBy, query, Query } from "firebase/firestore";
 
 export const dynamic = 'auto';
@@ -29,7 +29,7 @@ const Promptsection = async () => {
           }}
         ></div>
       </div>
-      <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 py-10  lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
         {posts.map((post) => (
           <Promptcard key={post.postId} {...post} />
         ))}

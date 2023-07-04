@@ -1,6 +1,6 @@
 'use client'
 import { auth, db } from "@/firebase/firebaseConfig";
-import { PostData } from "@/types/types";
+import { PostData } from "@/types/typescript.types";
 import { Timestamp, WriteBatch, collection, doc, serverTimestamp, writeBatch } from "firebase/firestore";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react"

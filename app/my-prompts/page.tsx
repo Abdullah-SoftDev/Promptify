@@ -1,7 +1,7 @@
 'use client'
 import Promptcard from "@/components/Promptcard";
 import { auth, db } from "@/firebase/firebaseConfig";
-import { PostData } from "@/types/types";
+import { PostData } from "@/types/typescript.types";
 import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs, doc, getDoc, DocumentSnapshot, DocumentReference, WriteBatch, writeBatch } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";

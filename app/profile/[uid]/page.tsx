@@ -1,6 +1,6 @@
 import Promptcard from "@/components/Promptcard";
 import { db } from "@/firebase/firebaseConfig";
-import { PostData } from "@/types/types";
+import { PostData } from "@/types/typescript.types";
 import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs } from "firebase/firestore";
 
 interface ParamsProps {

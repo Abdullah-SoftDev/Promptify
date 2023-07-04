@@ -3,12 +3,11 @@ interface ShareButtonProps {
 }
 const ShareButton = ({ prompt }: ShareButtonProps) => {
   const handleShareButtonClick = () => {
-    const promptText = `${prompt}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(promptText)}`;
-    window.open(twitterUrl, '_blank', 'width=600,height=300');
+    const chatgptUrl = 'https://chat.openai.com/?model=text-davinci-002-render-sha';
+    window.open(chatgptUrl, '_blank', 'width=600,height=300');
   };
   return (
-    <img onClick={handleShareButtonClick} className="text-blue-500 w-7 h-7 cursor-pointer" src="/twitter.png" alt="Twitter" />
+    <img onClick={handleShareButtonClick} className="w-6 h-6 cursor-pointer" src="https://img.icons8.com/?size=1x&id=4GhGzHg3nZeG&format=png" alt="Twitter" />
   )
 }
 

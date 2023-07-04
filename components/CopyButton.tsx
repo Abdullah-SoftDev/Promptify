@@ -13,9 +13,18 @@ const CopyButton = ({ prompt }: CopyButtonProps) => {
         setTimeout(() => setCopied(""), 1000);
     };
     return (
-        <div onClick={handleCopy} className="bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
-            {copied ? <CheckBadgeIcon className="text-blue-500 w-7 h-7 cursor-pointer" /> : <ClipboardIcon className="text-blue-500 w-5 h-5 cursor-pointer" />}
-        </div>
+        <div className='w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer' onClick={handleCopy}>
+        <img
+          src={
+            copied === prompt
+              ? "/tick.svg"
+              : "/copy.svg"
+          }
+          alt={copied === prompt ? "tick_icon" : "copy_icon"}
+          width={20}
+          height={20}
+        />
+      </div>
     )
 }
 
