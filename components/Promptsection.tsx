@@ -1,12 +1,15 @@
 import Promptcard from "./Promptcard"
-import { auth, db } from "@/firebase/firebaseConfig";
+import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/types";
-import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { DocumentData, collection, QuerySnapshot, getDocs, orderBy, query, Query } from "firebase/firestore";
 
 export const dynamic = 'auto';
 const Promptsection = async () => {
-  const snippetQuery: CollectionReference<DocumentData> = collection(db, "post");
+  const snippetQuery: Query<DocumentData> = query(
+    collection(db, "post"),
+    orderBy("createdAt", "desc")
+  );
+
   const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
   const posts: PostData[] = snippetDocs.docs.map((doc) => {
     const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
@@ -14,6 +17,7 @@ const Promptsection = async () => {
       ...data,
     };
   });
+
   return (
     <div className="mx-auto max-w-6xl px-6 lg:px-8">
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
