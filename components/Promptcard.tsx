@@ -42,7 +42,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         <img src={creatorImageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                         <div className="text-sm leading-6">
                             <p className="font-semibold text-gray-900">
-                                <Link href={`/profile/username=${creatorName}/?uid=${creatorUid}`}>
+                                <Link href={`/profile/${creatorUid}/?username=${creatorName}`}>
                                     <span className="absolute inset-0" />
                                     {creatorName}
                                 </Link>
