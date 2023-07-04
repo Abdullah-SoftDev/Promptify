@@ -2,15 +2,17 @@
 import { auth, db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/types";
 import { Timestamp, WriteBatch, collection, doc, serverTimestamp, writeBatch } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const Form = () => {
+const Form = ({ prompt, tag, postId }: any) => {
+    const pathName = usePathname();
+    console.log(pathName)
     // Set up the state for the create prompt form fields
     const [createPromptForm, setCreatePromptForm] = useState({
-        tag: "",
-        prompt: "",
+        tag: tag || "",
+        prompt: prompt || "",
     });
 
     // Set up the state for the loading indicator
@@ -81,6 +83,44 @@ const Form = () => {
         // Set the loading state back to false
         setLoading(false);
     };
+
+    // Update the form data to Firebase
+    const handelUpdatePrompt = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        const docRef = doc(db, `users/${user?.uid}/post`, postId);
+        const newDocRef = doc(db, 'post', postId);
+        try {
+            // Create a batch write operation for atomicity
+            const batch: WriteBatch = writeBatch(db);
+            const newSnippet: any = {
+                tag: createPromptForm.tag,
+                prompt: createPromptForm.prompt,
+            };
+            // Add the new prompt to the user's post collection and the general post collection
+            batch.update(docRef, newSnippet);
+            batch.update(newDocRef, newSnippet);
+
+            // Commit the batch write operation
+            await batch.commit();
+
+            // Reset the create prompt form fields
+            setCreatePromptForm({
+                tag: "",
+                prompt: ""
+            });
+
+            // Navigate to the home page
+            router.push("/my-prompts");
+        } catch (error) {
+            // Handle errors during form submission
+            alert("Create Prompt Form Error" + error);
+        }
+
+        // Set the loading state back to false
+        setLoading(false);
+    };
+
     return (
         <div className="isolate bg-white px-6 py-20 lg:px-8 ">
             <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
@@ -100,7 +140,7 @@ const Form = () => {
                 <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">Create and share amazing prompts with the world, and let your
                     imagination run wild with any AI-powered platform.</p>
             </div>
-            <form onSubmit={submitFormToFirebase} className="mx-auto mt-16 max-w-xl sm:mt-20">
+            <div className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div className="sm:col-span-2">
                         <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -108,6 +148,7 @@ const Form = () => {
                         </label>
                         <div className="mt-2.5">
                             <input
+                                value={createPromptForm.tag}
                                 onChange={handleInputChange}
                                 type="text"
                                 name="tag"
@@ -122,6 +163,7 @@ const Form = () => {
                         </label>
                         <div className="mt-2.5">
                             <textarea
+                                value={createPromptForm.prompt}
                                 name="prompt"
                                 onChange={handleInputChange}
                                 id="text"
@@ -132,20 +174,28 @@ const Form = () => {
                     </div>
                 </div>
                 <div className="mt-10 flex justify-between">
-                    <button
+                    {pathName === `/update-prompt/${postId}` && <button
+                        onClick={handelUpdatePrompt}
                         type="button"
                         className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
+                    >
+                        {loading ? "Loading..." : "Upadte"}
+                    </button>}
+                    <button
+                        type="button"
+                        className="px-4 py-2 text-sm font-medium text-gray-800 bg-gray-300 rounded-md hover:bg-gray-200"
                     >
                         Cancel
                     </button>
                     <button
-                        type="submit"
+                        onClick={submitFormToFirebase}
+                        type="button"
                         className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     >
                         {loading ? "Loading..." : "Post"}
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

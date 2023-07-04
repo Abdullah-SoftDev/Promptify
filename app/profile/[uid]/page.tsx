@@ -3,7 +3,10 @@ import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/types";
 import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs } from "firebase/firestore";
 
-const page = async ({ params }: any) => {
+interface ParamsProps {
+  params : any
+}
+const page = async ({ params }: ParamsProps) => {
   const { uid } = params;
 
   const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${uid}/post`);

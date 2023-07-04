@@ -9,7 +9,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const page = () => {
   const [user] = useAuthState(auth);
   const [myPrompts, setMyPrompts] = useState<PostData[]>([])
+  const [loading, setLoading] = useState(false)
   const getMyPrompts = async (userId: any) => {
+    setLoading(true);
     const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${userId}/post`);
     const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
     const posts: PostData[] = snippetDocs.docs.map((doc) => {
@@ -19,6 +21,7 @@ const page = () => {
       };
     });
     setMyPrompts(posts)
+    setLoading(false)
   }
   useEffect(() => {
     getMyPrompts(user?.uid)
@@ -46,6 +49,10 @@ const page = () => {
       }
     }
   };
+
+  if (loading) {
+    return <p className="text-red-600 text-center text-4xl">Loading...</p>
+  }
 
   return (
     <>

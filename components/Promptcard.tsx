@@ -67,12 +67,12 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                         Delete
                     </button>
 
-                    <button
-                        type="button"
+                    <Link
+                        href={`/update-prompt/${postId}`}
                         className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     >
                         Edit
-                    </button>
+                    </Link>
                 </div>}
             </article>
         </>
