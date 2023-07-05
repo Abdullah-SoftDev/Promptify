@@ -8,14 +8,15 @@ import HeartButton from "./HeartButton";
 import { db } from '@/firebase/firebaseConfig';
 import { useEffect, useState } from 'react';
 import { DocumentData, doc, getDoc } from 'firebase/firestore';
-import moment from 'moment';
 
-const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
+const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
     const pathName = usePathname();
     const [dbUser, setDbUser] = useState("")
     const [dbLike, setDbLike] = useState(like)
+    const [loading, setLoading] = useState(false);
 
     const getUser = async (userId: string) => {
+        setLoading(true);
         const ref = doc(db, `users/${userId}`);
         const res = await getDoc(ref);
         if (res.exists()) {
@@ -23,6 +24,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
             const userDataAsString = JSON.stringify(userData); // Convert DocumentData to string
             setDbUser(userDataAsString);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -36,7 +38,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                 <div className="flex items-center justify-between gap-x-4 text-xs w-full">
                     <p
                         className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700 hover:bg-gray-200">
-                        {moment(new Date(createdAt?.seconds * 1000)).fromNow()}
+                        {tag}
                     </p>
                     <div className="flex space-x-4 items-center">
                         <ShareButton prompt={prompt} />
@@ -47,7 +49,12 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                     <p className="py-5 font-medium text-sm leading-6 text-gray-600">{prompt}</p>
                 </div>
                 <div className="group relative flex items-center justify-between w-full">
-                    <Link href={`/profile/${creatorUid}/?username=${creatorName}`}>
+                    {loading ? <div className="animate-pulse">
+                        <div className="flex gap-4 items-center">
+                            <div className="h-10 w-10 rounded-full bg-gray-300"></div>
+                            <div className="w-40 h-4 bg-gray-300 rounded"></div>
+                        </div>
+                    </div> : <Link href={`/profile/${creatorUid}/?username=${creatorName}`}>
                         <div className="flex gap-4 items-center">
                             <img src={dbUserObj.photoURL} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                             <div className="text-sm leading-6">
@@ -56,7 +63,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                                 </p>
                             </div>
                         </div>
-                    </Link>
+                    </Link>}
                     <HeartButton postId={postId} dbLike={dbLike}
                         setDbLike={setDbLike} creatorUid={creatorUid} />
                 </div>
