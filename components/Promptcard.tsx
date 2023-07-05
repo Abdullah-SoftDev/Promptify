@@ -5,17 +5,38 @@ import CopyButton from "./CopyButton";
 import ShareButton from "./ShareButton";
 import { usePathname } from "next/navigation";
 import HeartButton from "./HeartButton";
+import { db } from '@/firebase/firebaseConfig';
+import { useEffect, useState } from 'react';
+import { DocumentData, doc, getDoc } from 'firebase/firestore';
+import moment from 'moment';
 
 const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
     const pathName = usePathname();
+    const [dbUser, setDbUser] = useState("")
+    const [dbLike, setDbLike] = useState(like)
 
+    const getUser = async (userId: string) => {
+        const ref = doc(db, `users/${userId}`);
+        const res = await getDoc(ref);
+        if (res.exists()) {
+            const userData = res.data() as DocumentData; // Explicitly cast to DocumentData type
+            const userDataAsString = JSON.stringify(userData); // Convert DocumentData to string
+            setDbUser(userDataAsString);
+        }
+    };
+
+    useEffect(() => {
+        getUser(creatorUid)
+    }, [creatorUid])
+
+    const dbUserObj = JSON.parse(dbUser || '{}');
     return (
         <>
             <article className="flex flex-col items-start justify-between bg-gray-100 relative overflow-hidden break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
                 <div className="flex items-center justify-between gap-x-4 text-xs w-full">
                     <p
                         className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700 hover:bg-gray-200">
-                        {tag}
+                        {moment(new Date(createdAt?.seconds * 1000)).fromNow()}
                     </p>
                     <div className="flex space-x-4 items-center">
                         <ShareButton prompt={prompt} />
@@ -28,15 +49,16 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                 <div className="group relative flex items-center justify-between w-full">
                     <Link href={`/profile/${creatorUid}/?username=${creatorName}`}>
                         <div className="flex gap-4 items-center">
-                            <img src={creatorImageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
+                            <img src={dbUserObj.photoURL} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                             <div className="text-sm leading-6">
                                 <p className="font-semibold text-gray-900">
-                                    {creatorName}
+                                    {dbUserObj.displayName}
                                 </p>
                             </div>
                         </div>
                     </Link>
-                    <HeartButton postId={postId}/>
+                    <HeartButton postId={postId} dbLike={dbLike}
+                        setDbLike={setDbLike} creatorUid={creatorUid} />
                 </div>
                 {pathName === "/my-prompts" && <div className="pt-5 flex justify-between w-full">
                     <button

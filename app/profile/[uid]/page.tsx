@@ -34,7 +34,7 @@ const page = async ({ params }: ParamsProps) => {
         {posts[0]?.creatorName} profile feed
       </span>
     </h1>
-    <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 py-10  lg:mx-0 lg:max-w-none lg:grid-cols-3">
+    <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3 mt-10">
       {posts.map((post) => (
         <Promptcard key={post.postId} {...post} />
       ))}

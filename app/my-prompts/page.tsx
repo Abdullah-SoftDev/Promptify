@@ -2,7 +2,7 @@
 import Promptcard from "@/components/Promptcard";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
-import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs, doc, getDoc, DocumentSnapshot, DocumentReference, WriteBatch, writeBatch } from "firebase/firestore";
+import { CollectionReference, DocumentData, collection, QuerySnapshot, getDocs, doc, getDoc, DocumentSnapshot, DocumentReference, WriteBatch, writeBatch, Query, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -12,7 +12,10 @@ const page = () => {
   const [loading, setLoading] = useState(false)
   const getMyPrompts = async (userId: any) => {
     setLoading(true);
-    const snippetQuery: CollectionReference<DocumentData> = collection(db, `users/${userId}/posts`);
+    const snippetQuery: Query<DocumentData> = query(
+      collection(db, `users/${userId}/posts`),
+      orderBy("createdAt", "desc")
+    );
     const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
     const posts: PostData[] = snippetDocs.docs.map((doc) => {
       const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData

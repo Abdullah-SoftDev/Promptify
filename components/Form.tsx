@@ -60,8 +60,6 @@ const Form = ({ prompt, tag, postId }: any) => {
                 postId: newPostId,
                 tag: createPromptForm.tag,
                 prompt: createPromptForm.prompt,
-                creatorName: user?.displayName! || user?.email!,
-                creatorImageUrl: user?.photoURL || "https://img.icons8.com/?size=1x&id=4V1nG4SioGjp&format=png",
                 creatorUid: user?.uid!,
                 like: 0,
                 createdAt: serverTimestamp() as Timestamp,
