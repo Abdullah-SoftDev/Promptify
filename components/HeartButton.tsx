@@ -8,11 +8,11 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 const HeartButton = ({ postId, dbLike,
     setDbLike, creatorUid }: any) => {
     const [user] = useAuthState(auth);
-    const [heartDoc] = useDocument(doc(db, `users/${user?.uid}/posts/${postId}/hearts/${user?.uid}`));
+    const [heartDoc] = useDocument(doc(db, `users/${creatorUid}/posts/${postId}/hearts/${user?.uid}`));
 
     const addHeart = async (e: FormEvent) => {
         e.preventDefault();
-        const userPostHeartRef = doc(db, `users/${user?.uid}/posts/${postId}/hearts/${user?.uid}`);
+        const userPostHeartRef = doc(db, `users/${creatorUid}/posts/${postId}/hearts/${user?.uid}`);
         const userPostRef = doc(db, `users/${creatorUid}/posts/${postId}`);
         const postRef = doc(db, `posts/${postId}`);
         try {
@@ -29,7 +29,7 @@ const HeartButton = ({ postId, dbLike,
 
     const removeHeart = async (e: FormEvent) => {
         e.preventDefault();
-        const userPostHeartRef = doc(db, `users/${user?.uid}/posts/${postId}/hearts/${user?.uid}`);
+        const userPostHeartRef = doc(db, `users/${creatorUid}/posts/${postId}/hearts/${user?.uid}`);
         const userPostRef = doc(db, `users/${creatorUid}/posts/${postId}`);
         const postRef = doc(db, `posts/${postId}`);
         try {
