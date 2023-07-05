@@ -1,10 +1,10 @@
 'use client'
-import { HeartIcon } from "@heroicons/react/24/solid"
 import { PostData } from '@/types/typescript.types';
 import Link from "next/link";
 import CopyButton from "./CopyButton";
 import ShareButton from "./ShareButton";
 import { usePathname } from "next/navigation";
+import HeartButton from "./HeartButton";
 
 const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
     const pathName = usePathname();
@@ -36,11 +36,7 @@ const Promptcard = ({ like, prompt, creatorImageUrl, postId, tag, creatorName, c
                             </div>
                         </div>
                     </Link>
-
-                    <div className="flex items-center space-x-1">
-                        <HeartIcon className="w-6 h-6 text-red-500" />
-                        <p className="font-medium">999</p>
-                    </div>
+                    <HeartButton postId={postId}/>
                 </div>
                 {pathName === "/my-prompts" && <div className="pt-5 flex justify-between w-full">
                     <button
