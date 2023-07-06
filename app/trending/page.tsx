@@ -6,7 +6,7 @@ import { Query, DocumentData, query, collection, orderBy, QuerySnapshot, getDocs
 const page = async () => {
   const snippetQuery: Query<DocumentData> = query(
     collection(db, "posts"),
-    orderBy("like", "asc"),
+    orderBy("like", "desc"),
     limit(5)
   );
 
