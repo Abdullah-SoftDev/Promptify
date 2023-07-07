@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebaseConfig";
 import { useRouter } from "next/navigation";
+import TopLoaderBar from "./TopLoaderBar";
 
 function classNames(...classes: any[]): string {
   return classes.filter(Boolean).join(" ");
