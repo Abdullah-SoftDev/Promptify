@@ -6,13 +6,14 @@ import LoadMoreButton from "./LoadmoreButton";
 import { revalidatePath } from "next/cache";
 
 
-const LIMIT = 1;
+// const LIMIT = 1;
 export const dynamic = 'auto';
+export const revalidate = 1
 const Promptsection = async () => {
   const snippetQuery: Query<DocumentData> = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
-    limit(LIMIT)
+    // limit(LIMIT)
   );
 
   const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
@@ -23,29 +24,28 @@ const Promptsection = async () => {
     };
   });
 
+  // async function getMorePost() {
+  //   'use server'
+  //   const last = posts[posts.length - 1];
+  //   console.log("last",last)
+  //   const cursor =  last.createdAt;
+  //   console.log("cursor", cursor)
+  //   const queryy = query(collectionGroup(db, 'posts'), orderBy('createdAt', 'desc'), startAfter(cursor), limit(LIMIT));
+  //   const snippetDocs = await getDocs(queryy);
+  //   const newPosts = snippetDocs.docs.map((doc) => {
+  //     const data = doc.data() as PostData;
+  //     return {
+  //       ...data,
+  //     };
+  //   });
+  //   console.log("newPosts",newPosts)
+  //   return newPosts;
+  // }
 
-  async function getMorePost() {
-    'use server'
-    const last = posts[posts.length - 1];
-    console.log("last",last)
-    const cursor =  last.createdAt;
-    console.log("cursor", cursor)
-    const queryy = query(collectionGroup(db, 'posts'), orderBy('createdAt', 'desc'), startAfter(cursor), limit(LIMIT));
-    const snippetDocs = await getDocs(queryy);
-    const newPosts = snippetDocs.docs.map((doc) => {
-      const data = doc.data() as PostData;
-      return {
-        ...data,
-      };
-    });
-    console.log("newPosts",newPosts)
-    return newPosts;
-  }
-
-  const newPosts = await getMorePost();
-  posts = posts.concat(newPosts);
-  console.log("Finalposts",posts)
-  revalidatePath("/");
+  // const newPosts = await getMorePost();
+  // posts = posts.concat(newPosts);
+  // console.log("Finalposts",posts)
+  // revalidatePath("/");
 
   return (
     <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -54,7 +54,7 @@ const Promptsection = async () => {
           <Promptcard key={post.postId} {...post} />
         ))}
       </div>
-      <LoadMoreButton getMorePost={getMorePost} />
+      {/* <LoadMoreButton getMorePost={getMorePost} /> */}
     </div>
   )
 }
