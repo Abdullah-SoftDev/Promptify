@@ -54,7 +54,7 @@ const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creator
                             <div className="h-10 w-10 rounded-full bg-gray-300"></div>
                             <div className="w-40 h-4 bg-gray-300 rounded"></div>
                         </div>
-                    </div> : <Link href={`/profile/${creatorUid}/?username=${creatorName}`}>
+                    </div> : <Link href={`/profile/${creatorUid}/?username=${dbUserObj.displayName}`}>
                         <div className="flex gap-4 items-center">
                             <img src={dbUserObj.photoURL} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                             <div className="text-sm leading-6">
