@@ -80,6 +80,7 @@ const Form = ({ prompt, tag, postId }: any) => {
 
             // Navigate to the home page
             router.push("/");
+            router.refresh();
         } catch (error) {
             // Handle errors during form submission
             alert("Create Prompt Form Error" + error);

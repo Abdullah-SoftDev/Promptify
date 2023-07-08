@@ -2,18 +2,14 @@ import Promptcard from "./Promptcard"
 import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import { DocumentData, collection, QuerySnapshot, getDocs, orderBy, query, Query, limit, collectionGroup, startAfter, Timestamp } from "firebase/firestore";
-import LoadMoreButton from "./LoadmoreButton";
-import { revalidatePath } from "next/cache";
 
-
-// const LIMIT = 1;
 export const dynamic = 'auto';
-export const revalidate = 1
 const Promptsection = async () => {
+  const LIMIT = 5;
   const snippetQuery: Query<DocumentData> = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
-    // limit(LIMIT)
+    limit(LIMIT)
   );
 
   const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
@@ -23,6 +19,7 @@ const Promptsection = async () => {
       ...data,
     };
   });
+  console.log(posts)
 
   // async function getMorePost() {
   //   'use server'
