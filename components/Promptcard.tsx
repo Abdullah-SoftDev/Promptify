@@ -11,7 +11,7 @@ import { DocumentData, doc, getDoc } from 'firebase/firestore';
 
 const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
     const pathName = usePathname();
-    const [dbUser, setDbUser] = useState("")
+    const [dbUser, setDbUser] = useState<DocumentData>({});
     const [dbLike, setDbLike] = useState(like)
     const [loading, setLoading] = useState(false);
 
@@ -20,9 +20,8 @@ const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creator
         const ref = doc(db, `users/${userId}`);
         const res = await getDoc(ref);
         if (res.exists()) {
-            const userData = res.data() as DocumentData; // Explicitly cast to DocumentData type
-            const userDataAsString = JSON.stringify(userData); // Convert DocumentData to string
-            setDbUser(userDataAsString);
+            const userData = res.data() as DocumentData;
+            setDbUser(userData);
         }
         setLoading(false);
     };
@@ -31,7 +30,6 @@ const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creator
         getUser(creatorUid)
     }, [creatorUid])
 
-    const dbUserObj = JSON.parse(dbUser || '{}');
     return (
         <>
             <article className="flex flex-col items-start justify-between bg-gray-100 relative overflow-hidden break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
@@ -54,12 +52,12 @@ const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creator
                             <div className="h-10 w-10 rounded-full bg-gray-300"></div>
                             <div className="w-40 h-4 bg-gray-300 rounded"></div>
                         </div>
-                    </div> : <Link href={`/profile/${creatorUid}/?username=${dbUserObj.displayName}`}>
+                    </div> : <Link href={`/profile/${creatorUid}/?username=${dbUser?.displayName}`}>
                         <div className="flex gap-4 items-center">
-                            <img src={dbUserObj.photoURL} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
+                            <img src={dbUser.photoURL} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                             <div className="text-sm leading-6">
                                 <p className="font-semibold text-gray-900">
-                                    {dbUserObj.displayName}
+                                    {dbUser.displayName}
                                 </p>
                             </div>
                         </div>
