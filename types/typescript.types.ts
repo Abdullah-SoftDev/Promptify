@@ -9,3 +9,9 @@ export type PostData = {
   creatorUid: string;
   deletePrompt?: (postId: string) => void;
 };
+
+export interface ProfileForm {
+  image: string;
+  name: string;
+}
+
