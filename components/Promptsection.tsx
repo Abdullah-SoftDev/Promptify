@@ -1,25 +1,24 @@
-import Promptcard from "./Promptcard"
+import Promptcard from "./Promptcard";
 import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
-import { DocumentData, collection, QuerySnapshot, getDocs, orderBy, query, Query, limit, collectionGroup, startAfter, Timestamp } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
 
-export const dynamic = 'auto';
+export const dynamic = "auto";
 const Promptsection = async () => {
+  // Fetching the prompts posts for the homepage
   const LIMIT = 5;
-  const snippetQuery: Query<DocumentData> = query(
+  const snippetQuery = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
     limit(LIMIT)
   );
-
-  const snippetDocs: QuerySnapshot<DocumentData> = await getDocs(snippetQuery);
+  const snippetDocs = await getDocs(snippetQuery);
   let posts: PostData[] = snippetDocs.docs.map((doc) => {
     const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
     return {
       ...data,
     };
   });
-  console.log(posts)
 
   // async function getMorePost() {
   //   'use server'
@@ -48,12 +47,13 @@ const Promptsection = async () => {
     <div className="mx-auto max-w-6xl px-6 lg:px-8">
       <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3 mt-10">
         {posts.map((post) => (
+        // Rendering Promptcard component for each fetched post
           <Promptcard key={post.postId} {...post} />
         ))}
       </div>
       {/* <LoadMoreButton getMorePost={getMorePost} /> */}
     </div>
-  )
-}
+  );
+};
 
-export default Promptsection
+export default Promptsection;

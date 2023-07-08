@@ -8,8 +8,9 @@ import { FormEvent } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/navigation";
+import { HeartButtonProps } from "@/types/typescript.types";
 
-const HeartButton = ({ postId, dbLike, setDbLike, creatorUid }: any) => {
+const HeartButton = ({ postId, dbLike, setDbLike, creatorUid }: HeartButtonProps) => {
   const [user] = useAuthState(auth);
   const router = useRouter();
   const [heartDoc] = useDocument(

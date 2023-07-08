@@ -1,7 +1,4 @@
-interface ShareButtonProps {
-  prompt: string;
-}
-const ShareButton = ({ prompt }: ShareButtonProps) => {
+const ChatgptButton = () => {
   const handleShareButtonClick = () => {
     const chatgptUrl = 'https://chat.openai.com/?model=text-davinci-002-render-sha';
     window.open(chatgptUrl, '_blank', 'width=600,height=300');
@@ -11,4 +8,4 @@ const ShareButton = ({ prompt }: ShareButtonProps) => {
   )
 }
 
-export default ShareButton
+export default ChatgptButton
