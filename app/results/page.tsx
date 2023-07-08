@@ -4,7 +4,7 @@ import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import Loader from "@/components/Loader";
 import { DocumentData, query, collection, orderBy, getDocs } from "firebase/firestore";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Fuse from "fuse.js";
 
@@ -74,19 +74,16 @@ const page = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <h1 className="pt-14 text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center">
-          <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
-            Searched Prompts
-          </span>
-        </h1>
-        <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3 mt-10">
-          {searchResult.map((post) => (
-            // Rendering Promptcard component for each fetched post
-            <Promptcard key={post.postId} {...post} />
-          ))}
-        </div>
-      </div>
+     <div>
+    {/* Search results */}
+    {searchResult.length > 0 ? (
+      searchResult.map((post) => (
+        <Promptcard key={post.postId} {...post} />
+      ))
+    ) : (
+     notFound()
+    )}
+  </div>
     </>
   );
 };

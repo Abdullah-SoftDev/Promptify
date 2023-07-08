@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const Form = ({ prompt, tag, postId }: PostData) => {
+const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:string }) => {
   const pathName = usePathname();
   const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
@@ -77,8 +77,9 @@ const Form = ({ prompt, tag, postId }: PostData) => {
   // Update the form data to Firebase
   const handleUpdatePrompt = async (e: FormEvent) => {
     e.preventDefault();
-    const userPostRef = doc(db, `users/${user?.uid}/posts`, postId);
-    const generalPostRef = doc(db, "posts", postId);
+    if(user && postId){
+      const userPostRef = doc(db, `users/${user?.uid}/posts`, postId);
+      const generalPostRef = doc(db, "posts", postId);
     setLoading(true);
     try {
       // Create a batch write operation for atomicity
@@ -106,6 +107,7 @@ const Form = ({ prompt, tag, postId }: PostData) => {
     // Set the loading state back to false
     setLoading(false);
   };
+}
 
   // Cancel form submission
   const handelCancel = () => {
