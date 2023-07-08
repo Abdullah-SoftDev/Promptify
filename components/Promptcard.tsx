@@ -9,7 +9,7 @@ import { db } from '@/firebase/firebaseConfig';
 import { useEffect, useState } from 'react';
 import { DocumentData, doc, getDoc } from 'firebase/firestore';
 
-const Promptcard = ({ like, prompt, postId, tag, creatorName, createdAt, creatorUid, deletePrompt }: PostData) => {
+const Promptcard = ({ like, prompt, postId, tag, createdAt, creatorUid, deletePrompt }: PostData) => {
     const pathName = usePathname();
     const [dbUser, setDbUser] = useState<DocumentData>({});
     const [dbLike, setDbLike] = useState(like)
