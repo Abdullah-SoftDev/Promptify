@@ -1,18 +1,13 @@
-import Form from "@/components/Form"
-import { db } from "@/firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebaseConfig";
+import Form from "@/components/Form";
 
-const page = async ({ params }: any) => {
+const page = async ({ params }: { params: { postId: string } }) => {
   const { postId } = params;
-  const docRef = doc(
-    db,
-    "posts",
-    postId
-  );
-  const getPromptsById = (await getDoc(docRef)).data();
-  return (
-    <Form key={getPromptsById && getPromptsById.postId} {...getPromptsById}/>
-  )
-}
+  const docSnapshot = await getDoc(doc(db, "posts", postId));
+  const getPromptsById = docSnapshot.data();
+  
+  return <Form key={getPromptsById?.postId} {...getPromptsById} />;
+};
 
-export default page
+export default page;
