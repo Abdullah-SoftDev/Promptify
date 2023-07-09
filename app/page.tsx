@@ -1,4 +1,5 @@
 import Feed from "@/components/Feed";
+import Footer from "@/components/Footer";
 import Herosection from "@/components/Herosection";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <>
       <Herosection />
       <Feed/>
+      <Footer/>
     </>
   )
 }

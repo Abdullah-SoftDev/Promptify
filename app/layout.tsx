@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
-import Footer from '@/components/Footer'
 import TopLoaderBar from '@/components/TopLoaderBar'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
@@ -19,7 +18,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <TopLoaderBar />
         <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   )
