@@ -5,6 +5,7 @@ import { Timestamp, WriteBatch, collection, doc, serverTimestamp, writeBatch } f
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Balancer } from "react-wrap-balancer";
 
 const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:string }) => {
   const pathName = usePathname();
@@ -126,8 +127,10 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
           </span>
         </h1>
         <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">
+          <Balancer>
           Create and share amazing prompts with the world, and let your
           imagination run wild with any AI-powered platform.
+          </Balancer>
         </p>
       </div>
       <div className="mx-auto mt-16 max-w-xl sm:mt-20">
@@ -146,7 +149,7 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
                 type="text"
                 name="tag"
                 id="company"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block outline-none p-2 w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -164,7 +167,7 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
                 onChange={handleInputChange}
                 id="text"
                 rows={4}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block outline-none w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
               ></textarea>
             </div>
           </div>
@@ -173,7 +176,7 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
           <button
             type="button"
             onClick={handelCancel}
-            className="px-4 py-2 text-sm font-medium text-gray-800 bg-gray-300 rounded-md hover:bg-gray-200"
+            className="px-4 py-2 text-sm font-medium text-white bg-rose-600  hover:bg-rose-500 rounded-md"
           >
             Cancel
           </button>
@@ -190,7 +193,7 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
             <button
               onClick={createPrompt}
               type="button"
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-600 rounded-md"
             >
               {loading ? "Loading..." : "Create"}
             </button>

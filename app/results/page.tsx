@@ -4,27 +4,29 @@ import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import Loader from "@/components/Loader";
 import { DocumentData, query, collection, orderBy, getDocs } from "firebase/firestore";
-import { notFound, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Fuse from "fuse.js";
 
 const page = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search_query");
+  alert(search)
   const cleanedSearchQuery = search?.toLowerCase().trim().replace(/[^\w\s]+/g, "").replace(/\s+/g, "");
   const [searchResult, setsearchResult] = useState<PostData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const getSearchResult = async () => {
     setLoading(true);
-    const snippetQuery = query(collection(db, "posts"),orderBy("tag"),orderBy("createdAt", "desc")); // Creating a query
+    if(cleanedSearchQuery){
+      const snippetQuery = query(collection(db, "posts"), orderBy("tag"), orderBy("createdAt", "desc")); // Creating a query
     const snippetDocs = await getDocs(snippetQuery); // Getting the query snapshot
     // Perform fuzzy matching on the search query against the database results
     const matchedResults = cleanedSearchQuery
       ? fuzzyMatch(
-          cleanedSearchQuery,
-          snippetDocs.docs.map((doc) => doc.data())
-        )
+        cleanedSearchQuery,
+        snippetDocs.docs.map((doc) => doc.data())
+      )
       : [];
     const posts: PostData[] = matchedResults
       .map((result) => {
@@ -44,6 +46,7 @@ const page = () => {
       })
       .filter(Boolean) as PostData[];
     setsearchResult(posts);
+    }
     setLoading(false);
   };
 
@@ -69,21 +72,26 @@ const page = () => {
 
   // Render the Loader component while loading
   if (loading) {
-    return <Loader />;
+    return <div className="pt-2">
+      <Loader />;
+    </div>
   }
 
   return (
     <>
-     <div>
-    {/* Search results */}
-    {searchResult.length > 0 ? (
-      searchResult.map((post) => (
-        <Promptcard key={post.postId} {...post} />
-      ))
-    ) : (
-     notFound()
-    )}
-  </div>
+      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-6">
+        <h1 className="md:text-5xl text-2xl text-center font-bold">
+          <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
+            {searchResult.length === 0 ?"No Searched Results" : "Your Searched Results"}</span>
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-8">
+          {(
+            searchResult.map((post) => (
+              <Promptcard key={post.postId} {...post} />
+            ))
+          )}
+        </div>
+      </div>
     </>
   );
 };

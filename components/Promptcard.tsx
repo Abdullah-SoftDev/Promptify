@@ -34,10 +34,10 @@ const Promptcard = ({ like, prompt, postId, tag, creatorUid, deletePrompt }: Pos
 
   return (
     <>
-      <article className="flex flex-col items-start justify-between bg-gray-100 relative overflow-hidden break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
+      <article className="flex flex-col items-start justify-between bg-zinc-50 relative overflow-hidden break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit">
         <div className="flex items-center justify-between gap-x-4 text-xs w-full">
           <p className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-700 hover:bg-gray-200">
-            {tag}
+            #{tag}
           </p>
           <div className="flex space-x-4 items-center">
             <ChatgptButton />
@@ -91,14 +91,14 @@ const Promptcard = ({ like, prompt, postId, tag, creatorUid, deletePrompt }: Pos
                 }
               }}
               type="button"
-              className="px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-md hover:bg-red-600"
+              className="px-4 py-2 text-sm font-medium bg-rose-500 text-white rounded-md hover:bg-rose-600"
             >
               Delete
             </button>
 
             <Link
               href={`/update-prompt/${postId}`}
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700"
             >
               Edit
             </Link>

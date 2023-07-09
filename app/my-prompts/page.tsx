@@ -6,6 +6,7 @@ import { PostData } from "@/types/typescript.types";
 import { collection, getDocs, doc, WriteBatch, writeBatch, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Balancer } from "react-wrap-balancer";
 
 const page = () => {
   const [user] = useAuthState(auth);
@@ -59,23 +60,26 @@ const page = () => {
 
   // Render the loader when data is being fetched
   if (loading) {
-    return <Loader />;
+    return <div className="pt-2">
+      <Loader />
+    </div>
   }
 
   return (
     <>
-      <h1 className="text-5xl text-center font-bold pt-14 max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-14">
+      <h1 className="text-5xl text-center font-bold">
         <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
+          <Balancer>
           Welcome to your personalised profile feed
+          </Balancer>
         </span>
       </h1>
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 py-10  lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {myPrompts.map((post) => (
-          // Rendering Promptcard component for each fetched post
-            <Promptcard key={post.postId} {...post} deletePrompt={deletePrompt} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-14">
+      {myPrompts.map((post) => (
+        <Promptcard key={post.postId} {...post} deletePrompt={deletePrompt} />
+      ))}
+    </div>
       </div>
     </>
   );

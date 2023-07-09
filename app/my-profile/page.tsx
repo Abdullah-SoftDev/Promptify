@@ -106,13 +106,13 @@ const page = () => {
     return (
       <>
         <div className="w-[154px] h-[154px] rounded-full bg-gray-300 animate-pulse mx-auto justify-center items-center"></div>
-        <div className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 h-8 bg-gray-300 animate-pulse"></div>
+        <div className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6 pl-4 h-8 bg-gray-300 animate-pulse"></div>
       </>
     );
   };
 
   return (
-    <div className="mx-auto max-w-xl justify-center space-y-14 p-10">
+    <div className="mx-auto max-w-xl justify-center space-y-8 pt-14 p-4">
       {loading ? (
         <SkeletonLoading />
       ) : (
@@ -150,7 +150,7 @@ const page = () => {
                 onChange={(e) =>
                   setProfileForm({ ...profileForm, name: e.target.value })
                 }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4"
+                className="block outline-none w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6 pl-4"
               />
             </div>
           </div>
@@ -172,7 +172,7 @@ const page = () => {
           router.push("/");
         }}
         type="button"
-        className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+        className="flex w-full justify-center rounded-md bg-rose-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rose-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
       >
         {updating ? "Updating..." : "Update Profile"}
       </button>

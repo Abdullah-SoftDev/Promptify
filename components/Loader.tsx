@@ -4,7 +4,7 @@ const Loader = () => {
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 100 100"
     preserveAspectRatio="xMidYMid"
-    className="animate-spin w-8 h-8 mx-auto items-center justify-center text-center min-h-screen"
+    className="animate-spin w-8 h-8 mx-auto items-center justify-center text-center"
   >
     <circle
       cx="50"

@@ -44,15 +44,15 @@ const Promptsection = async () => {
   // revalidatePath("/");
 
   return (
-    <div className="mx-auto max-w-6xl px-6 lg:px-8">
-      <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3 mt-10">
-        {posts.map((post) => (
-        // Rendering Promptcard component for each fetched post
-          <Promptcard key={post.postId} {...post} />
-        ))}
+    <div className="max-w-5xl mx-auto px-2 xl:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-14">
+          {posts.map((post) => (
+            // Rendering Promptcard component for each fetched post
+            <Promptcard key={post.postId} {...post} />
+          ))}
+        </div>
+       {/* <LoadMoreButton getMorePost={getMorePost} /> */}
       </div>
-      {/* <LoadMoreButton getMorePost={getMorePost} /> */}
-    </div>
   );
 };
 
