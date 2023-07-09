@@ -21,7 +21,7 @@ const Herosection = () => {
           <div className="relative rounded-full p-2 font-medium text-md  leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 text-center">
             <Balancer>
             Give it a ⭐ and contribute in this.{" "}
-            <Link href="/https://github.com/Abdullah-SoftDev/Promptify" className="font-semibold text-purple-600">
+            <Link target="_blank" href="https://github.com/Abdullah-SoftDev/Promptify" className="font-semibold text-purple-600">
               <span className="absolute inset-0" aria-hidden="true" />
               Github <span aria-hidden="true">&rarr;</span>
             </Link>
