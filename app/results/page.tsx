@@ -3,11 +3,22 @@ import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import { DocumentData, query, collection, orderBy, getDocs } from "firebase/firestore";
 import Fuse from "fuse.js";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type Props = {
-  searchParams: { [search_query: string]: string | string[] | undefined };
+  searchParams: { search_query?: string | string[] | undefined };
 };
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const title = Array.isArray(searchParams.search_query)
+    ? searchParams.search_query[0]
+    : searchParams.search_query;
+
+  return {
+    title: `Search - ${title}` || '',
+  };
+}
 
 const Page = async ({ searchParams }: Props) => {
   const search = searchParams?.search_query; // Extract the search query

@@ -1,14 +1,8 @@
 "use client";
 import { auth } from "@/firebase/firebaseConfig";
-import { Metadata } from "next";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
-
-export const metadata: Metadata = {
-  title: 'Forgot Password | Promptify',
-  description: 'Recover your account password. Enter your email address to receive instructions on resetting your password. Regain access to your account now!',
-};
 
 const page = () => {
   const [email, setEmail] = useState("");

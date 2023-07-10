@@ -3,18 +3,11 @@ import { auth, db, storage } from "@/firebase/firebaseConfig";
 import { ProfileForm } from "@/types/typescript.types";
 import { DocumentData, Timestamp, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Metadata } from "next";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useAuthState, useUpdateProfile } from "react-firebase-hooks/auth";
 
-export const metadata: Metadata = {
-  title: 'My Profile | Promptify',
-  description: 'View and edit your profile information. Customize your personal details, update your bio, and manage your preferences. Enhance your profile and make it uniquely yours!',
-};
-
-
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const [dbUser, setDbUser] = useState<DocumentData>({}); //dbUser means user from the database
@@ -187,4 +180,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

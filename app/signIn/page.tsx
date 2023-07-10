@@ -3,7 +3,6 @@ import { FIREBASE_ERRORS } from "@/firebase/error";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { Metadata } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -11,10 +10,7 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-fireba
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const metadata: Metadata = {
-  title: 'Sign In | Promptify',
-  description: 'Sign in to access your account. Enter your credentials and get started with our platform. Join our community and unlock a world of opportunities!',
-};
+
 
 const page = () => {
   const router = useRouter();

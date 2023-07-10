@@ -43,7 +43,7 @@ const Herosection = () => {
           </h1>
           <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">
             <Balancer>
-            Promptopia is an open-source AI prompting tool for modern world to
+            Promptify is an open-source AI prompting tool for modern world to
             discover, create and share creative prompts.
             </Balancer>
           </p>

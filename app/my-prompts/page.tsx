@@ -4,15 +4,10 @@ import Promptcard from "@/components/Promptcard";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import { collection, getDocs, doc, WriteBatch, writeBatch, orderBy, query } from "firebase/firestore";
-import { Metadata } from "next";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Balancer } from "react-wrap-balancer";
 
-export const metadata: Metadata = {
-  title: 'My Published Prompts | Promptify',
-  description: 'View all your published prompts in one place. Explore the prompts you have created and shared with the community. Discover the impact of your creativity!',
-};
 
 const page = () => {
   const [user] = useAuthState(auth);
