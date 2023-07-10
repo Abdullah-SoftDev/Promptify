@@ -2,9 +2,26 @@ import Promptcard from "@/components/Promptcard";
 import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
 import { DocumentData, collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { Metadata } from "next";
 import { Balancer } from "react-wrap-balancer";
 
-const page = async ({ params }: { params: { uid: string } }) => {
+type Props = {
+  params: { uid: string };
+  searchParams: { [username: string]: string | string[] | undefined };
+};
+
+// or Dynamic metadata
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const username = Array.isArray(searchParams.username)
+    ? searchParams.username[0] // Take the first element if it's an array
+    : searchParams.username; // Otherwise, use the value as is
+
+  return {
+    title: username || '', // Ensure a string value for the title
+  };
+}
+
+const page = async ({ params }: Props) => {
   const { uid } = params; // Extracting uid from params object
 
   // Fetch user data

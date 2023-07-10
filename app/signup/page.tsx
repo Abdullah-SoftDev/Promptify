@@ -3,12 +3,18 @@ import { FIREBASE_ERRORS } from "@/firebase/error";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { Metadata } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+export const metadata: Metadata = {
+  title: 'Sign Up | Promptify',
+  description: 'Create a new account and join our platform. Sign up to access exclusive features, connect with others, and unlock exciting opportunities. Get started today!',
+};
 
 const page = () => {
   const router = useRouter();
