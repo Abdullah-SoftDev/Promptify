@@ -112,7 +112,8 @@ const Page = () => {
   };
 
   return (
-    <div className="mx-auto max-w-xl justify-center space-y-8 pt-14 p-4">
+    
+    <div className="mx-auto max-w-xl justify-center space-y-8 pt-32 p-4">
       {loading ? (
         <SkeletonLoading />
       ) : (

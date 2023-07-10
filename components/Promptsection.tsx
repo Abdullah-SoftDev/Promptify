@@ -44,8 +44,8 @@ const Promptsection = async () => {
   // revalidatePath("/");
 
   return (
-    <div className="max-w-5xl mx-auto px-2 xl:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-14">
+    <div className="max-w-5xl mx-auto px-2 xl:px-0 py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
             // Rendering Promptcard component for each fetched post
             <Promptcard key={post.postId} {...post} />

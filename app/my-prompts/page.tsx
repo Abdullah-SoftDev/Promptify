@@ -17,7 +17,7 @@ const page = () => {
   // Function to fetch user's prompts
   const getMyPrompts = async (userId: string) => {
     setLoading(true);
-    const snippetQuery = query(collection(db, `users/${userId}/posts`),orderBy("createdAt", "desc"));
+    const snippetQuery = query(collection(db, `users/${userId}/posts`), orderBy("createdAt", "desc"));
     const snippetDocs = await getDocs(snippetQuery);
     const posts: PostData[] = snippetDocs.docs.map((doc) => {
       const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
@@ -68,19 +68,18 @@ const page = () => {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-14">
-      <h1 className="text-5xl text-center font-bold">
-        <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
+      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-10 sm:pt-14 pb-14">
+        <h1 className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center display text-3xl h-full md:text-4xl font-bold pb-1">
           <Balancer>
-          Welcome to your personalised profile feed
+            Welcome to your personalised profile feed
           </Balancer>
-        </span>
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-14">
-      {myPrompts.map((post) => (
-        <Promptcard key={post.postId} {...post} deletePrompt={deletePrompt} />
-      ))}
-    </div>
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-6 sm:pt-14">
+          {myPrompts.map((post) => (
+            // Rendering Promptcard component for each fetched post
+            <Promptcard key={post.postId} {...post} />
+          ))}
+        </div>
       </div>
     </>
   );

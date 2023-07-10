@@ -119,14 +119,14 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
   };
 
   return (
-    <div className="bg-white px-6 py-20 lg:px-8 ">
+    <div className="px-4 py-14 lg:0 ">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center">
-          <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
+      <h1 className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center display text-3xl h-full md:text-4xl font-bold pb-1">
+          <Balancer>
             Create Prompt
-          </span>
+          </Balancer>
         </h1>
-        <p className="mt-7 text-lg text-gray-600 sm:text-xl max-w-2xl">
+        <p className="mt-3 text-lg text-gray-600 sm:text-xl max-w-2xl">
           <Balancer>
           Create and share amazing prompts with the world, and let your
           imagination run wild with any AI-powered platform.

@@ -70,9 +70,9 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-6">
+      <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-10 sm:pt-14 pb-14">
         {posts.length === 0 && notFound()}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
             <Promptcard key={post.postId} {...post} />
           ))}

@@ -4,7 +4,7 @@ const ChatgptButton = () => {
     window.open(chatgptUrl, '_blank', 'width=600,height=300');
   };
   return (
-    <img onClick={handleShareButtonClick} className="w-6 h-6 cursor-pointer" src="/chatgptIcon" alt="chatgpt-image" />
+    <img onClick={handleShareButtonClick} className="w-6 h-6 cursor-pointer" src="/chatgptIcon.png" alt="chatgpt-image" />
   )
 }
 

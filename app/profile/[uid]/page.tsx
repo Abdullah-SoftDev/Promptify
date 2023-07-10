@@ -42,15 +42,13 @@ const page = async ({ params }: Props) => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-14">
-      <h1 className="text-5xl text-center font-bold">
-        <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center">
-          <Balancer>
-          {userData?.displayName} profile feed
-          </Balancer>
-        </span>
+    <div className="max-w-5xl mx-auto px-2 xl:px-0 pt-10 sm:pt-14 pb-14">
+      <h1 className="bg-gradient-to-r from-purple-500 via-pink-600 to-rose-500 bg-clip-text text-transparent text-center display text-3xl h-full md:text-4xl font-bold pb-1">
+        <Balancer>
+          {userData?.displayName} profile
+        </Balancer>
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-14">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-6 sm:pt-14">
         {posts.map((post) => (
           // Rendering Promptcard component for each fetched post
           <Promptcard key={post.postId} {...post} />

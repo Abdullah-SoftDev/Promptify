@@ -3,7 +3,7 @@ import { Balancer } from "react-wrap-balancer";
 
 const Herosection = () => {
   return (
-    <div className="relative isolate px-2 pb-24">
+    <div className="relative isolate px-2 pb-24 md:pb-28">
       <div
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
