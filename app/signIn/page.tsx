@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] = useSignInWithEmailAndPassword(auth);
@@ -185,4 +185,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

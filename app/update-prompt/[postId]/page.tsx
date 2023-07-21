@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: {  params: { postId: string }
   }
 }
 
-const page = async ({ params }: { params: { postId: string } }) => {
+const Page = async ({ params }: { params: { postId: string } }) => {
   const { postId } = params; // Extracting postId from params object
   const docSnapshot = await getDoc(doc(db, "posts", postId)); // Retrieving document snapshot for the specified postId
   const getPromptsById = docSnapshot.data(); // Extracting data from the document snapshot
@@ -23,4 +23,4 @@ const page = async ({ params }: { params: { postId: string } }) => {
   return <Form key={getPromptsById?.postId} {...getPromptsById} />;
 };
 
-export default page;
+export default Page;

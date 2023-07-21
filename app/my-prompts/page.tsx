@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Balancer } from "react-wrap-balancer";
 
 
-const page = () => {
+const Page = () => {
   const [user] = useAuthState(auth);
   const [myPrompts, setMyPrompts] = useState<PostData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -85,4 +85,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

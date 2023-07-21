@@ -21,7 +21,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   };
 }
 
-const page = async ({ params }: Props) => {
+const Page = async ({ params }: Props) => {
   const { uid } = params; // Extracting uid from params object
 
   // Fetch user data
@@ -58,4 +58,4 @@ const page = async ({ params }: Props) => {
   );
 };
 
-export default page;
+export default Page;

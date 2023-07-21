@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
-const page = () => {
+const Page = () => {
   const [email, setEmail] = useState("");
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
@@ -77,4 +77,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

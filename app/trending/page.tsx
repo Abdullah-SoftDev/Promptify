@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 
-const page = async () => {
+const Page = async () => {
   const postsRef = collection(db, "posts"); // Getting reference to "posts" collection
   const snippetQuery = query(postsRef, orderBy("like", "desc"), limit(5)); // Creating a query to get top 5 posts ordered by likes
   const snippetDocs = await getDocs(snippetQuery); // Getting the query snapshot
@@ -42,4 +42,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;

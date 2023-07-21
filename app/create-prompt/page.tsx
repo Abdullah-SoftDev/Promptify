@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 };
 
  
-const page = () => {
+const Page = () => {
     return (
       <Form/>
     )
 }
 
-export default page
+export default Page

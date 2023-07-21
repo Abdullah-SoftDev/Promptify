@@ -10,7 +10,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword } from
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
@@ -182,4 +182,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
