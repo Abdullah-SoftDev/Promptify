@@ -10,20 +10,33 @@ export const dynamic = 'auto',
   runtime = 'nodejs',
   preferredRegion = 'auto'
 
+  async function getCustomers() {
+    const customers = await getDocs(collection(db, "posts"));
+    return customers.docs.map((doc) => {
+      const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
+      return {
+        id: doc.id,
+        ...data,
+      }
+    });
+  }
+
 const Promptsection = async () => {
+  const customers = await getCustomers();
+  
   // Fetching the prompts posts for the homepage
-  const snippetQuery = query(
-    collection(db, "posts"),
-    orderBy("createdAt", "desc"),
-  );
-  const snippetDocs = await getDocs(snippetQuery);
-  const posts: PostData[] = snippetDocs.docs.map((doc) => {
-    const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
-    return {
-      id: doc.id,
-      ...data,
-    };
-  });
+  // const snippetQuery = query(
+  //   collection(db, "posts"),
+  //   orderBy("createdAt", "desc"),
+  // );
+  // const snippetDocs = await getDocs(snippetQuery);
+  // const posts: PostData[] = snippetDocs.docs.map((doc) => {
+  //   const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
+  //   return {
+  //     id: doc.id,
+  //     ...data,
+  //   };
+  // });
 
   // async function getMorePost() {
   //   'use server'
@@ -50,7 +63,7 @@ const Promptsection = async () => {
   return (
     <div className="max-w-5xl mx-auto px-2 xl:px-0 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {posts.map((post) => (
+          {customers.map((post) => (
             // Rendering Promptcard component for each fetched post
             <Promptcard key={post.postId} {...post} />
           ))}
