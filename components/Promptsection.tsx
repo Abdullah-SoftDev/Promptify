@@ -1,21 +1,26 @@
 import Promptcard from "./Promptcard";
 import { db } from "@/firebase/firebaseConfig";
 import { PostData } from "@/types/typescript.types";
-import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
-export const dynamic = "auto";
+export const dynamic = 'auto',
+  dynamicParams = true,
+  revalidate = 0,
+  fetchCache = 'auto',
+  runtime = 'nodejs',
+  preferredRegion = 'auto'
+
 const Promptsection = async () => {
   // Fetching the prompts posts for the homepage
-  const LIMIT = 5;
   const snippetQuery = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
-    limit(LIMIT)
   );
   const snippetDocs = await getDocs(snippetQuery);
-  let posts: PostData[] = snippetDocs.docs.map((doc) => {
+  const posts: PostData[] = snippetDocs.docs.map((doc) => {
     const data = doc.data() as PostData; // Explicitly cast doc.data() as PostData
     return {
+      id: doc.id,
       ...data,
     };
   });
@@ -42,7 +47,6 @@ const Promptsection = async () => {
   // posts = posts.concat(newPosts);
   // console.log("Finalposts",posts)
   // revalidatePath("/");
-
   return (
     <div className="max-w-5xl mx-auto px-2 xl:px-0 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
