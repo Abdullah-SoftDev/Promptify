@@ -65,8 +65,8 @@ const Form = ({ prompt, tag, postId }: { prompt?:string, tag?:string, postId?:st
         prompt: "",
       });
       // Navigate to the home page
-      router.push("/");
       router.refresh();
+      router.push("/");
     } catch (error) {
       // Handle errors during form submission
       alert("Error occurred while submitting the form: " + error);
