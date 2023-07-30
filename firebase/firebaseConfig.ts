@@ -1,4 +1,4 @@
-import { initializeApp, getApp, getApps } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase for SSR
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
