@@ -32,8 +32,6 @@ const Promptcard = ({ like, prompt, postId, tag, creatorUid, deletePrompt }: Pos
     }
   }, [creatorUid]);
 
-  console.log(dbUser)
-  
   return (
     <>
       <article className="flex flex-col items-start justify-between bg-zinc-50 relative overflow-hidden break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit">
