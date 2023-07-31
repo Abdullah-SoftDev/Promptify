@@ -5,13 +5,27 @@ import { query, collection, orderBy, getDocs, limit, QueryDocumentSnapshot } fro
 import { Balancer } from "react-wrap-balancer";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: 'Trending Prompts | Promptify',
-  description: 'Discover and create trending prompts for AI. Explore popular prompts created by the community and unleash your creativity. Copy and use prompts directly in AI tools!',
+// export const metadata: Metadata = {
+//   title: 'Trending Prompts | Promptify',
+//   description: 'Discover and create trending prompts for AI. Explore popular prompts created by the community and unleash your creativity. Copy and use prompts directly in AI tools!',
+// };
+
+type Props = {
+  searchParams: { search_query?: string | string[] | undefined };
 };
 
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const title = Array.isArray(searchParams.search_query)
+    ? searchParams.search_query[0]
+    : searchParams.search_query;
 
-const Page = async () => {
+  return {
+    title: `Search - ${title}` || '',
+  };
+}
+
+const Page = async ({ searchParams }: Props) => {
+  console.log(searchParams)
   const postsRef = collection(db, "posts"); // Getting reference to "posts" collection
   const snippetQuery = query(postsRef, orderBy("like", "desc"), limit(5)); // Creating a query to get top 5 posts ordered by likes
   const snippetDocs = await getDocs(snippetQuery); // Getting the query snapshot
