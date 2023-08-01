@@ -14,6 +14,13 @@ type Props = {
   searchParams: { title: string };
 }
 
+export const dynamic = 'auto',
+  dynamicParams = true,
+  revalidate = 0,
+  fetchCache = 'auto',
+  runtime = 'nodejs',
+  preferredRegion = 'auto'
+
 const Page = async ({ searchParams }: Props) => {
   console.log(searchParams.title)
   const postsRef = collection(db, "posts");
