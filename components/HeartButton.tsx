@@ -39,6 +39,7 @@ const HeartButton = ({ postId, dbLike, setDbLike, creatorUid }: HeartButtonProps
       batch.set(userPostHeartRef, { uid: user?.uid });
       await batch.commit();
       setDbLike((prevCount: number) => prevCount + 1);
+      router.refresh()
     } catch (error) {
       alert("Add Heart Error" + error);
     }
@@ -59,6 +60,7 @@ const HeartButton = ({ postId, dbLike, setDbLike, creatorUid }: HeartButtonProps
       batch.delete(userPostHeartRef);
       await batch.commit();
       setDbLike((prevCount: number) => prevCount - 1);
+      router.refresh()
     } catch (error) {
       alert("Remove Heart Error" + error);
     }
